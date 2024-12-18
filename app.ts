@@ -10,7 +10,7 @@ app.set('views' , 'views');
 
 
 app.get('/', (req,res,next) => {
-    res.send("with the name of Allah");
+    res.render('index');
 })
 
 app.listen(3000 ,() => {
