@@ -3,15 +3,6 @@ import { getproductbycategory } from "../models/products.model";
 
 
 export const getHome = (req ,res ,next ) => {
-    //get products 
-    // render home page (index.ejs)
-
-    // getAllProducts().then(products => {
-    //     res.render('index' , {
-    //         products : products,
-    //     });
-    // })
-
 
     // to filter by the category
     let category = req.query.category;
@@ -25,13 +16,17 @@ export const getHome = (req ,res ,next ) => {
         );
         
     }
-    else {
+    else if ( category == "all" ){
         getAllProducts().then(products => {
             res.render('index' , {
                 products : products,
             });
         })
     }
-
-
+    
+else {
+        res.render('index' , {
+            products : [],
+        });
+    }
 };

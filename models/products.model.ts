@@ -71,3 +71,19 @@ export const getproductbyid= (id) => {
         }
     });
 };
+
+export const getfirstproduct= () => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            await mongoose.connect(DB_URL);
+
+            const product = await model.findOne({});
+            resolve(product);
+        } catch (error) {
+            console.error("Error fetching products:", error);
+            reject(error); 
+        } finally {
+            await mongoose.disconnect();
+        }
+    });
+};
