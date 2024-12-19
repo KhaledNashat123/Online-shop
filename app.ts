@@ -1,6 +1,7 @@
 import express from "express";
 import path from "path";
 import homeRouter from "./routes/home.route";
+import productrouter from "./routes/product.router";
 import bodyParser from "body-parser";
 
 const app = express();
@@ -15,6 +16,7 @@ app.set('views' , 'views');
 
 
 app.use('/' , homeRouter)
+app.use('/product' ,productrouter )
 
 app.listen(3000 ,() => {
     console.log("server is running on port 3000")

@@ -53,6 +53,21 @@ export const getproductbycategory = (category) => {
             await mongoose.disconnect();
         }
     });
+};
 
+    
+export const getproductbyid= (id) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            await mongoose.connect(DB_URL);
 
+            const product = await model.findById(id);
+            resolve(product);
+        } catch (error) {
+            console.error("Error fetching products:", error);
+            reject(error); 
+        } finally {
+            await mongoose.disconnect();
+        }
+    });
 };
