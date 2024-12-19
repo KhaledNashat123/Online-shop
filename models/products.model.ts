@@ -35,4 +35,24 @@ export const getAllProducts = () => {
             await mongoose.disconnect();
         }
     });
+
+
+};
+
+export const getproductbycategory = (category) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            await mongoose.connect(DB_URL);
+
+            const products = await model.find({category : category});
+            resolve(products);
+        } catch (error) {
+            console.error("Error fetching products:", error);
+            reject(error); 
+        } finally {
+            await mongoose.disconnect();
+        }
+    });
+
+
 };
