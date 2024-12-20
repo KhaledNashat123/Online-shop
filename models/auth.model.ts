@@ -22,7 +22,9 @@ export const CreateNewUser = async (username ,email , password) => {
     try {
         await mongoose.connect(DB_URL);
         let check = await User.findOne({email : email})
-        if (check) return "email is already used"
+        if (check){
+            throw new Error("Email is already used");
+        } 
         
         let hashedPassword = await bcrypt.hash(password, 10);
 
@@ -32,7 +34,6 @@ export const CreateNewUser = async (username ,email , password) => {
             password : hashedPassword,  
         })
         return await user.save();
-
     } catch (error) {
         console.error("Error in signup:", error);
         throw error;

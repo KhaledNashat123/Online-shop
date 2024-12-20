@@ -5,6 +5,15 @@
 
 <div class="container text-center">
     <h3>Create Account</h3>
+
+    <% if (typeof error !== 'undefined') { %>
+        <% if (error === 'Email is already used') { %>
+            <div class="alert alert-danger">
+                Email is already used. Please try another one.
+            </div>
+        <% } %>
+    <% } %>
+
     <form action="/signup" method="POST">
         <input type="text" class="form-control" name="username" placeholder="Username">
         <input type="email" class="form-control" name="email" placeholder="E-mail">
