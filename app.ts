@@ -18,6 +18,7 @@ app.set('views' , 'views');
 app.use('/' , homeRouter)
 app.use('/product' ,productrouter )
 
+
 app.listen(3000 ,() => {
     console.log("server is running on port 3000")
     });

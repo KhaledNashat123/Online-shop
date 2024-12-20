@@ -19,71 +19,55 @@ const schema: Schema = new mongoose.Schema({
     description: { type: String, required: true },
 });
 
-const model : Model<product> = mongoose.model<product>('product' , schema)
+const the_product : Model<product> = mongoose.model<product>('product' , schema)
 
-export const getAllProducts = () => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            await mongoose.connect(DB_URL);
-
-            const products = await model.find();
-            resolve(products);
-        } catch (error) {
-            console.error("Error fetching products:", error);
-            reject(error); 
-        } finally {
-            await mongoose.disconnect();
-        }
-    });
-
-
+export const getAllProducts = async () => {
+    try {
+        await mongoose.connect(DB_URL);
+        return await the_product.find();
+    } catch (error) {
+        console.error("Error fetching all products:", error);
+        throw error;
+    } finally {
+        await mongoose.disconnect();
+    }
 };
 
-export const getproductbycategory = (category) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            await mongoose.connect(DB_URL);
+export const getproductbycategory = async (category) => {
+    try {
+        await mongoose.connect(DB_URL);
 
-            const products = await model.find({category : category});
-            resolve(products);
-        } catch (error) {
-            console.error("Error fetching products:", error);
-            reject(error); 
-        } finally {
-            await mongoose.disconnect();
-        }
-    });
+        const products = await the_product.find({ category });
+        return products; 
+    } catch (error) {
+        console.error("Error getting products:", error);
+        throw error; 
+    } finally {
+        await mongoose.disconnect();
+    }
 };
 
     
-export const getproductbyid= (id) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            await mongoose.connect(DB_URL);
-
-            const product = await model.findById(id);
-            resolve(product);
-        } catch (error) {
-            console.error("Error fetching products:", error);
-            reject(error); 
-        } finally {
-            await mongoose.disconnect();
-        }
-    });
+export const getproductbyid = async (id) => {
+    try {
+        await mongoose.connect(DB_URL);
+        return await the_product.findById(id);
+    } catch (error) {
+        console.error("Error getting product by ID:", error);
+        throw error;
+    } finally {
+        await mongoose.disconnect();
+    }
 };
 
-export const getfirstproduct= () => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            await mongoose.connect(DB_URL);
-
-            const product = await model.findOne({});
-            resolve(product);
-        } catch (error) {
-            console.error("Error fetching products:", error);
-            reject(error); 
-        } finally {
-            await mongoose.disconnect();
-        }
-    });
+export const getfirstproduct = async () => {
+    try {
+        await mongoose.connect(DB_URL);
+        return await the_product.findOne({});
+    } catch (error) {
+        console.error("Error getting product:", error);
+        throw error;
+    } finally {
+        await mongoose.disconnect();
+    }
 };
