@@ -1,9 +1,12 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import express from "express";
 import path from "path";
 import homeRouter from "./routes/home.route";
 import productrouter from "./routes/product.router";
 import signuprouter from "./routes/auth.route";
 import bodyParser from "body-parser";
+
 
 const app = express();
 app.use(express.static(path.join(__dirname , "assets")));
@@ -21,6 +24,6 @@ app.use('/product' ,productrouter )
 app.use('/signup' ,signuprouter )
 
 
-app.listen(3000 ,() => {
-    console.log("server is running on port 3000")
-    });
+app.listen(process.env.PORT || 3000 , () => {
+    console.log("server is listening on port " , process.env.PORT || 3000)
+});
