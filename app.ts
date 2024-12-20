@@ -2,6 +2,7 @@ import express from "express";
 import path from "path";
 import homeRouter from "./routes/home.route";
 import productrouter from "./routes/product.router";
+import signuprouter from "./routes/auth.route";
 import bodyParser from "body-parser";
 
 const app = express();
@@ -17,6 +18,7 @@ app.set('views' , 'views');
 
 app.use('/' , homeRouter)
 app.use('/product' ,productrouter )
+app.use('/signup' ,signuprouter )
 
 
 app.listen(3000 ,() => {
