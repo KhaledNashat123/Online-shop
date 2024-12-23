@@ -41,3 +41,30 @@ export const CreateNewUser = async (username ,email , password) => {
         await mongoose.disconnect();   
     }
 };
+
+
+export const login = async (email, password) => {
+    try {
+        await mongoose.connect(DB_URL);
+        const user = await User.findOne({ email: email });
+
+        if (!user) {
+            throw new Error("User is not found");
+        }
+
+        const identical = await bcrypt.compare(password, user.password);
+
+        if (!identical) {
+            throw new Error("The Password is incorrect");
+        }
+        else {
+            return user._id;
+        }
+
+    } catch (error) {
+        console.error("Error in login:", error);
+        throw error;
+    } finally {
+        await mongoose.disconnect();
+    }
+};

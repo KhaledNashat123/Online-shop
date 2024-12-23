@@ -2,6 +2,7 @@ import { CreateNewUser } from "../models/auth.model";
 import { validationResult } from "express-validator";
 
 
+
 export const authcontroller_getsignup = (req,res,next) => {
     res.render('signup' , {
         validation_error : []
@@ -34,6 +35,10 @@ export const authcontroller_postsignup = (req, res, next) => {
         });
     }
 };
+
+
+
+
 
 
 

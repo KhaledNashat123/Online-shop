@@ -1,0 +1,21 @@
+<%- include('parts/header.ejs')%>
+<%- include('parts/navbar.ejs')%>
+<%- include('parts/footer.ejs')%>
+
+<div class="container text-center">
+    <h3>Login</h3>
+    <% if (typeof error !== 'undefined') { %>
+        <div class="alert alert-danger">
+            <%= error.message %>
+        </div>
+    <% } %>
+    <form action="/login" method="POST">
+        <input type="email" class="form-control" name="email" placeholder="E-mail">
+        <input type="password" class="form-control" name="password" placeholder="Password">
+        <input type="submit" value="Login" class="btn btn-primary">
+    </form>
+    <br>
+    <div>
+        Don't have an account? <a href="/signup">Create Account</a>
+    </div>
+</div>
