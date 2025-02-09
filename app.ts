@@ -16,15 +16,15 @@ import connectmongoDBsession from "connect-mongodb-session";
 const mongoDBstore = connectmongoDBsession(session);
 
 const STORE = new mongoDBstore({
-    uri: "mongodb://localhost:27017/your-database-name",
-    collection: "your-session-collection-name",
+    uri: "mongodb://localhost:27017/online-shop",
+    collection: "Session",
     });
 
 const app = express();
 
 app.use(session({
     secret : "this is my secret way to hash express session .. ",
-    saveUnintialized : false,
+    saveUninitialized : false,
     store: STORE
 }));
 
