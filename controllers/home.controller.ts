@@ -12,6 +12,7 @@ export const getHome = (req ,res ,next ) => {
         getproductbycategory(category).then( products =>
             res.render('index' , {
                 products : products,
+                isUser:req.session.userId
             })
         );
         
@@ -20,6 +21,7 @@ export const getHome = (req ,res ,next ) => {
         getAllProducts().then(products => {
             res.render('index' , {
                 products : products,
+                isUser:req.session.userId
             });
         })
     }
@@ -27,6 +29,7 @@ export const getHome = (req ,res ,next ) => {
 else {
         res.render('index' , {
             products : [],
+            isUser:req.session.userId
         });
     }
 };

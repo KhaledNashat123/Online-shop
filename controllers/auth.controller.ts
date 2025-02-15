@@ -5,7 +5,8 @@ import { validationResult } from "express-validator";
 
 export const authcontroller_getsignup = (req,res,next) => {
     res.render('signup' , {
-        validation_error : []
+        validation_error : [],
+        isUser:req.session.userId
     });
     
 }
@@ -19,7 +20,8 @@ export const authcontroller_postsignup = (req, res, next) => {
 
     if(!err.isEmpty()){
         res.render('signup' , {
-            validation_error : err.array()
+            validation_error : err.array(), 
+            isUser:req.session.userId,
         });
     }
     else {
@@ -30,7 +32,8 @@ export const authcontroller_postsignup = (req, res, next) => {
         .catch((error) => {
             res.render('signup', {
                 error : error.message,
-                validation_error : []
+                validation_error : [],
+                isUser:req.session.userId,
             })
         });
     }

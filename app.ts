@@ -6,6 +6,7 @@ import homeRouter from "./routes/home.route";
 import productrouter from "./routes/product.router";
 import signuprouter from "./routes/auth.route";
 import loginrouter from './routes/login.route';
+import flash from "connect-flash"
 
 
 import bodyParser from "body-parser";
@@ -30,6 +31,7 @@ app.use(session({
 
 app.use(express.static(path.join(__dirname , "assets")));
 app.use(express.static(path.join(__dirname , "images")));
+app.use(flash());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
