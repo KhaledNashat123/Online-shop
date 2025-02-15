@@ -14,6 +14,12 @@
         <input type="submit" class="btn btn-primary" value="Filter">
     </form>
 
+    <% if (validationError) { %>
+        <p class="alert alert-danger">
+        <%= validationError.msg %>
+        </p>
+    <% } %>
+
     <%if (products.length === 0) { %>
             <div class="alert alert-danger">
                 There are no products.
@@ -31,6 +37,8 @@
                             <p>Price: <%= product.price %> $</p>
                             <form action="/cart" method="POST">
                                 <input type="number" name="amount" class="form-control" placeholder="Quantity">
+                                <input type="hidden" name="name" value="<%= product.name %>">
+                                <input type="hidden" name="price" value="<%= product.price %>">
                                 <input type="hidden" name="productId" value="<%= product._id %>">
                                 <input type="submit" value="Add to cart" class="btn btn-primary">
                             </form>

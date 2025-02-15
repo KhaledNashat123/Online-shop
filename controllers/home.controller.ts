@@ -12,7 +12,8 @@ export const getHome = (req ,res ,next ) => {
         getproductbycategory(category).then( products =>
             res.render('index' , {
                 products : products,
-                isUser:req.session.userId
+                isUser:req.session.userId,
+                validationError : req.flash("validationErrors")[0],
             })
         );
         
@@ -21,7 +22,8 @@ export const getHome = (req ,res ,next ) => {
         getAllProducts().then(products => {
             res.render('index' , {
                 products : products,
-                isUser:req.session.userId
+                isUser:req.session.userId,
+                validationError : req.flash("validationErrors")[0],
             });
         })
     }
@@ -29,7 +31,8 @@ export const getHome = (req ,res ,next ) => {
 else {
         res.render('index' , {
             products : [],
-            isUser:req.session.userId
+            isUser:req.session.userId,
+            validationError : req.flash("validationErrors")[0],
         });
     }
 };

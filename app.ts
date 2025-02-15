@@ -6,6 +6,7 @@ import homeRouter from "./routes/home.route";
 import productrouter from "./routes/product.router";
 import signuprouter from "./routes/auth.route";
 import loginrouter from './routes/login.route';
+import cartrouter from './routes/cart.route';
 import flash from "connect-flash"
 
 
@@ -44,6 +45,7 @@ app.use('/' , homeRouter)
 app.use('/product' ,productrouter )
 app.use('/signup' ,signuprouter )
 app.use('/login' ,loginrouter )
+app.use('/cart' ,cartrouter )
 
 
 app.listen(process.env.PORT || 3000 , () => {
