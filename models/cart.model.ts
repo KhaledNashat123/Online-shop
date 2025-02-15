@@ -23,12 +23,17 @@ const Cart : Model<cart> = mongoose.model<cart>('cart' , schema)
 
 export const AddItem = async (data) => {
     try {
-        await mongoose.connect(DB_URL);
-        let item = await new Cart(data);
-        return item.save();
+        await mongoose.connect(DB_URL); 
+        let exist = await Cart.findOne({ name: data.name, userId: data.userId });
 
+        if (exist) {
+            exist.amount =Number(exist.amount) + Number(data.amount); 
+            return exist.save();
+        }
+            let item = new Cart(data);
+            return item.save();
     } catch (error) {
-        console.error("Error in saving item :", error);
+        console.error("Error in saving item:", error);
         throw error;
     }
 };
