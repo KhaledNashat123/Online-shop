@@ -1,8 +1,13 @@
-import { AddItem } from "../models/cart.model"
+import { AddItem, DeleteItem, EditItem, GetItemByUserId } from "../models/cart.model"
 import { validationResult } from "express-validator";
 
 export const getCart = (req,res,next) => {
-    res.send("nash20000t")
+    GetItemByUserId(req.session.userId).then(items => {
+        res.render('cart' , {
+            items : items,
+            isUser : true,
+        })
+    })
 } 
 
 
@@ -27,3 +32,22 @@ export const postCart = (req,res,next) => {
         res.redirect('/')
     }
 }
+
+export const postSave = (req,res,next) => {       
+        EditItem(req.body.cartId , req.body.amount
+        ).then(() =>{
+            res.redirect('/cart')
+        }).catch(error => {
+            console.log(error);
+        })   
+    }
+
+
+export const postDelete = (req,res,next) => {        
+        DeleteItem(req.body.cartId
+        ).then(() =>{
+            res.redirect('/cart')
+        }).catch(error => {
+            console.log(error);
+        })   
+    }

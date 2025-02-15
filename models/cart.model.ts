@@ -19,13 +19,50 @@ const schema: Schema = new mongoose.Schema({
     productId: { type: String, required: true },
 });
 
-const the_cart : Model<cart> = mongoose.model<cart>('cart' , schema)
+const Cart : Model<cart> = mongoose.model<cart>('cart' , schema)
 
 export const AddItem = async (data) => {
     try {
         await mongoose.connect(DB_URL);
-        let item = await new the_cart(data);
+        let item = await new Cart(data);
         return item.save();
+
+    } catch (error) {
+        console.error("Error in saving item :", error);
+        throw error;
+    }
+};
+
+
+export const GetItemByUserId = async (userId) => {
+    try {
+        await mongoose.connect(DB_URL);
+        return Cart.find({userId })
+
+    } catch (error) {
+        console.error("Error in getting items :", error);
+        throw error;
+    }
+};
+
+
+
+export const EditItem = async (id , NewAmount) => {
+    try {
+        await mongoose.connect(DB_URL);
+        return Cart.updateOne({ _id: id }, { $set: { amount: NewAmount } });
+
+    } catch (error) {
+        console.error("Error in saving item :", error);
+        throw error;
+    }
+};
+
+
+export const DeleteItem = async (id) => {
+    try {
+        await mongoose.connect(DB_URL);
+        return Cart.deleteOne({ _id: id });
 
     } catch (error) {
         console.error("Error in saving item :", error);
