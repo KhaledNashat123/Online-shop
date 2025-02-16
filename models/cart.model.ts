@@ -39,7 +39,7 @@ export const AddItem = async (data) => {
 };
 
 
-export const GetItemByUserId = async (userId) => {
+export const GetItemsByUserId = async (userId) => {
     try {
         await mongoose.connect(DB_URL);
         return Cart.find({userId })
@@ -72,5 +72,30 @@ export const DeleteItem = async (id) => {
     } catch (error) {
         console.error("Error in saving item :", error);
         throw error;
+    }
+};
+
+
+export const getCartItems = async (userId) => {
+    try {
+        await mongoose.connect(DB_URL);
+        return await Cart.find({ userId });
+    } catch (error) {
+        console.error("Error in fetching cart items:", error);
+        throw error;
+    } finally {
+        await mongoose.disconnect();
+    }
+};
+
+export const clearCart = async (userId) => {
+    try {
+        await mongoose.connect(DB_URL);
+        await Cart.deleteMany({ userId });
+    } catch (error) {
+        console.error("Error in clearing cart:", error);
+        throw error;
+    } finally {
+        await mongoose.disconnect();
     }
 };

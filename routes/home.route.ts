@@ -7,5 +7,4 @@ const router = Router();
 
 router.get('/' ,isauth,getHome)
 
-
 export default router ;

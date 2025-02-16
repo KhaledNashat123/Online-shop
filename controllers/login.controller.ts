@@ -8,7 +8,6 @@ export const authcontroller_getlogin = (req,res,next) => {
     });
 }
 
-
 export const authcontroller_postlogin = (req,res,next) => {
     
     let email = req.body.email;

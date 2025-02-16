@@ -1,8 +1,8 @@
-import { AddItem, DeleteItem, EditItem, GetItemByUserId } from "../models/cart.model"
+import { AddItem, DeleteItem, EditItem, GetItemsByUserId } from "../models/cart.model"
 import { validationResult } from "express-validator";
 
 export const getCart = (req,res,next) => {
-    GetItemByUserId(req.session.userId).then(items => {
+    GetItemsByUserId(req.session.userId).then(items => {
         res.render('cart' , {
             items : items,
             isUser : true,
