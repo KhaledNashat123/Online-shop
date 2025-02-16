@@ -6,7 +6,8 @@ import { validationResult } from "express-validator";
 export const authcontroller_getsignup = (req,res,next) => {
     res.render('signup' , {
         validation_error : [],
-        isUser:req.session.userId
+        isUser:req.session.userId,
+        isAdmin : false,
     });
     
 }

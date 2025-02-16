@@ -7,6 +7,10 @@ interface user extends Document {
     name : string,
     email : string,
     password : string,
+    isAdmin : {
+        type : boolean,
+        default : false,
+    }
 }
 
 
@@ -14,6 +18,7 @@ const schema: Schema = new mongoose.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
+    isAdmin: { type: Boolean, default: false, required: true } 
 });
 
 const User : Model<user> = mongoose.model<user>('user' , schema)
@@ -58,7 +63,10 @@ export const login = async (email, password) => {
             throw new Error("The Password is incorrect");
         }
         else {
-            return user._id;
+            return {
+                id : user._id,
+                isAdmin :user.isAdmin
+            };
         }
 
     } catch (error) {

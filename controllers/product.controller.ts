@@ -7,7 +7,8 @@ export const firstproduct_in_DB_controller= (req , res, next) => {
     getfirstproduct().then(product =>
         res.render("product" ,{
             product : product ,
-            isUser:req.session.userId
+            isUser:req.session.userId,
+            isAdmin : req.session.isAdmin,
         })
     )
 }
@@ -23,7 +24,8 @@ export const productcontroller= (req , res, next) => {
     getproductbyid(id).then( product =>
                 res.render('product' , {
                     product : product,
-                    isUser:req.session.userId
+                    isUser:req.session.userId,
+                    isAdmin : req.session.isAdmin,
                 })
             );
 }

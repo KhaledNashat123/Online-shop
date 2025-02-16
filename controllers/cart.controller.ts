@@ -6,6 +6,7 @@ export const getCart = (req,res,next) => {
         res.render('cart' , {
             items : items,
             isUser : true,
+            isAdmin : req.session.isAdmin,
         })
     })
 } 

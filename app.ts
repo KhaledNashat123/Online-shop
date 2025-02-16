@@ -7,7 +7,8 @@ import productrouter from "./routes/product.router";
 import signuprouter from "./routes/auth.route";
 import loginrouter from './routes/login.route';
 import cartrouter from './routes/cart.route';
-import orderrouter from './routes/order.route'
+import orderrouter from './routes/order.route';
+import adminrouter from './routes/admin.route';
 import flash from "connect-flash"
 
 
@@ -48,6 +49,7 @@ app.use('/signup' ,signuprouter )
 app.use('/login' ,loginrouter )
 app.use('/cart' ,cartrouter )
 app.use('/orders',orderrouter)
+app.use('/admin',adminrouter)
 
 
 app.listen(process.env.PORT || 3000 , () => {

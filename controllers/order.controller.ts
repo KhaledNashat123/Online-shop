@@ -7,6 +7,7 @@ export const getOrders = async (req, res, next) => {
         res.render("orders", { 
             orders, 
             isUser: req.session.userId,
+            isAdmin : req.session.isAdmin,
             success: req.flash("success"), 
             error: req.flash("error")      
         });
