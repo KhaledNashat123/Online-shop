@@ -21,23 +21,27 @@
                 <tr>
                     <th>#</th>
                     <th>Items</th>
-                    <th>Total Price</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
                 </tr>
             </thead>
             <tbody>
-                <% for (let i = 0; i < orders.length; i++) { %>
-                    <tr>
-                        <td><%= i + 1 %></td>
-                        <td><%= orders[i].name %></td>
-                        <td><%= orders[i].price %> $</td>
-                        <td>
-                            <form method="POST" class="d-flex justify-content-center">
-                                <input type="number" name="amount" class="form-control text-center w-50" value="<%= orders[i].amount %>" readonly>
-                            </form>
-                        </td>
-                        <td><%= orders[i].price * orders[i].amount %> $</td>
-                    </tr>
-                <% } %>
+                <% orders.forEach((order, orderIndex) => { %>
+                    <% order.items.forEach((item, itemIndex) => { %>
+                        <tr>
+                            <td><%= orderIndex + 1 %></td>
+                            <td><%= item.name %></td>
+                            <td>
+                                <form method="POST" class="d-flex justify-content-center">
+                                    <input type="number" name="amount" class="form-control text-center w-50" value="<%= item.amount %>" readonly>
+                                </form>
+                            </td>
+                            <td><%= item.price %> $</td>
+                            <td><%= item.price * item.amount %> $</td>
+                        </tr>
+                    <% }) %>
+                <% }) %>
             </tbody>            
         </table>
     <% } %>

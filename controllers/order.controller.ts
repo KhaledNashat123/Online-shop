@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
-import { clearCart, GetItemsByUserId } from "../models/cart.model";
+import { clearCart } from "../models/cart.model";
 import { clearOrders, getUserOrders, updateStatus } from "../models/order.model";
 
 
 export const getOrders = async (req, res, next) => {
     try {
-        const orders = await GetItemsByUserId(req.session.userId);
+        const orders = await getUserOrders(req.session.userId);
         res.render("orders", { 
             orders, 
             isUser: req.session.userId,
