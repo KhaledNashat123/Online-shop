@@ -45,8 +45,9 @@ export const AddItem = async (data) => {
         await createOrder(data.userId, orderItems);
 
     } catch (error) {
-        console.error("Error in creating order:", error);
         throw error;
+    } finally {
+        await mongoose.disconnect();
     }
 };
 
@@ -57,8 +58,9 @@ export const GetItemsByUserId = async (userId) => {
         return Cart.find({userId })
 
     } catch (error) {
-        console.error("Error in getting items :", error);
         throw error;
+    } finally {
+        await mongoose.disconnect();
     }
 };
 
@@ -70,8 +72,9 @@ export const EditItem = async (id , NewAmount) => {
         return Cart.updateOne({ _id: id }, { $set: { amount: NewAmount } });
 
     } catch (error) {
-        console.error("Error in saving item :", error);
         throw error;
+    } finally {
+        await mongoose.disconnect();
     }
 };
 
@@ -82,8 +85,9 @@ export const DeleteItem = async (id) => {
         return Cart.deleteOne({ _id: id });
 
     } catch (error) {
-        console.error("Error in saving item :", error);
         throw error;
+    } finally {
+        await mongoose.disconnect();
     }
 };
 
@@ -93,7 +97,6 @@ export const getCartItems = async (userId) => {
         await mongoose.connect(DB_URL);
         return await Cart.find({ userId });
     } catch (error) {
-        console.error("Error in fetching cart items:", error);
         throw error;
     } finally {
         await mongoose.disconnect();
@@ -105,7 +108,6 @@ export const clearCart = async (userId) => {
         await mongoose.connect(DB_URL);
         await Cart.deleteMany({ userId });
     } catch (error) {
-        console.error("Error in clearing cart:", error);
         throw error;
     } finally {
         await mongoose.disconnect();

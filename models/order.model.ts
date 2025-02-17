@@ -36,7 +36,6 @@ export const createOrder = async (userId, items) => {
         const order = new OrderModel({ userId, items, totalPrice, status: "pending" });
         return await order.save();
     } catch (error) {
-        console.error("Error in creating order:", error);
         throw error;
     } finally {
         await mongoose.disconnect();
@@ -48,7 +47,6 @@ export const getUserOrders = async (userId) => {
         await mongoose.connect(DB_URL);
         return await OrderModel.find({ userId });
     } catch (error) {
-        console.error("Error in fetching orders:", error);
         throw error;
     } finally {
         await mongoose.disconnect();
@@ -61,7 +59,6 @@ export const clearOrders = async (userId) => {
         await mongoose.connect(DB_URL);
         await OrderModel.deleteMany({ userId });
     } catch (error) {
-        console.error("Error in clearing cart:", error);
         throw error;
     } finally {
         await mongoose.disconnect();
@@ -82,7 +79,6 @@ export const updateStatus = async (orderId,status) => {
         await order.save();  
 
     }catch (error) {
-        console.error("Error in updating status:", error);
         throw error;
     } finally {
         await mongoose.disconnect();

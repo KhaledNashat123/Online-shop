@@ -14,7 +14,7 @@ export const post_AddProduct = async (req, res, next) => {
     try {
 
         if (!req.file) {
-            return res.status(400).send("No image uploaded");
+            throw new Error ("There is no file uploaded, please upload one");
         }
 
         const product = {
@@ -29,7 +29,6 @@ export const post_AddProduct = async (req, res, next) => {
         res.redirect("/admin/add");
 
     } catch (error) {
-        console.error("Error adding product:", error);
-        res.status(500).send("Internal Server Error");
+        next(error);
     }
 };

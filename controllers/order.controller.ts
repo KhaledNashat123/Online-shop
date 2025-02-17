@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import { clearCart } from "../models/cart.model";
 import { clearOrders, getUserOrders, updateStatus } from "../models/order.model";
 
@@ -14,7 +13,7 @@ export const getOrders = async (req, res, next) => {
             error: req.flash("error")      
         });
     } catch (error) {
-        res.redirect("/");
+        next(error);
     }
 };
 
@@ -30,9 +29,7 @@ export const getManageOrder = async (req, res,next) => {
             isAdmin : true,
         });
     } catch (error) {
-        res.redirect("/orders");
-    } finally {
-        await mongoose.disconnect();
+        next(error);
     }
 };
 
@@ -54,9 +51,7 @@ export const confirmOrders = async (req, res,next) => {
             isAdmin : true,
         });
     } catch (error) {
-        res.redirect("/orders");
-    } finally {
-        await mongoose.disconnect();
+        next(error);
     }
 };
 
@@ -68,16 +63,14 @@ export const deleteAllOrders = async (req, res,next) => {
         req.flash("success", "All orders deleted successfully"); 
         res.redirect("/orders");
     } catch (error) {
-        res.redirect("/orders");
-    } finally {
-        await mongoose.disconnect();
+        next(error);
     }
 };
 
 
 
 
-export const updateOrderStatus = async (req, res) => {
+export const updateOrderStatus = async (req, res,next) => {
     try {
         const { orderId } = req.params; 
         const { status } = req.body; 
@@ -86,9 +79,6 @@ export const updateOrderStatus = async (req, res) => {
         res.redirect('/orders/manage-orders')
 
     } catch (error) {
-            res.redirect("/orders");
-    } finally {
-        await mongoose.disconnect();
+        next(error);
     }
-
 };

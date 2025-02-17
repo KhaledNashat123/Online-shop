@@ -40,7 +40,6 @@ export const CreateNewUser = async (username ,email , password) => {
         })
         return await user.save();
     } catch (error) {
-        console.error("Error in signup:", error);
         throw error;
     } finally {
         await mongoose.disconnect();   
@@ -70,7 +69,6 @@ export const login = async (email, password) => {
         }
 
     } catch (error) {
-        console.error("Error in login:", error);
         throw error;
     } finally {
         await mongoose.disconnect();

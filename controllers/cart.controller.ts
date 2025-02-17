@@ -25,7 +25,7 @@ export const postCart = (req,res,next) => {
         }).then(() =>{
             res.redirect('/cart')
         }).catch(error => {
-            console.log(error);
+            next(error);
         })   
     }
     else {
@@ -39,7 +39,7 @@ export const postSave = (req,res,next) => {
         ).then(() =>{
             res.redirect('/cart')
         }).catch(error => {
-            console.log(error);
+            next(error);
         })   
     }
 
@@ -49,6 +49,6 @@ export const postDelete = (req,res,next) => {
         ).then(() =>{
             res.redirect('/cart')
         }).catch(error => {
-            console.log(error);
+            next(error);
         })   
     }

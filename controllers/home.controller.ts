@@ -4,7 +4,6 @@ import { getproductbycategory } from "../models/products.model";
 
 export const getHome = (req ,res ,next ) => {
 
-    // to filter by the category
     let category = req.query.category || "all";
     let allcatigories  : string[] = ["all" ,"silver watch" , "gold watch" ,"black watch"];
     
@@ -16,7 +15,9 @@ export const getHome = (req ,res ,next ) => {
                 isAdmin : req.session.isAdmin,
                 validationError : req.flash("validationErrors")[0],
             })
-        );
+        ).catch((error)=> {
+            next(error);
+        });
         
     }
     else if ( category == "all" ){
@@ -27,6 +28,8 @@ export const getHome = (req ,res ,next ) => {
                 isAdmin : req.session.isAdmin,
                 validationError : req.flash("validationErrors")[0],
             });
+        }).catch((error)=> {
+            next(error);
         })
     }
     

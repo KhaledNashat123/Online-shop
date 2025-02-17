@@ -26,7 +26,6 @@ export const getAllProducts = async () => {
         await mongoose.connect(DB_URL);
         return await the_product.find();
     } catch (error) {
-        console.error("Error fetching all products:", error);
         throw error;
     } finally {
         await mongoose.disconnect();
@@ -40,7 +39,6 @@ export const getproductbycategory = async (category) => {
         const products = await the_product.find({ category });
         return products; 
     } catch (error) {
-        console.error("Error getting products:", error);
         throw error; 
     } finally {
         await mongoose.disconnect();
@@ -53,7 +51,6 @@ export const getproductbyid = async (id) => {
         await mongoose.connect(DB_URL);
         return await the_product.findById(id);
     } catch (error) {
-        console.error("Error getting product by ID:", error);
         throw error;
     } finally {
         await mongoose.disconnect();
@@ -65,7 +62,6 @@ export const getfirstproduct = async () => {
         await mongoose.connect(DB_URL);
         return await the_product.findOne({});
     } catch (error) {
-        console.error("Error getting product:", error);
         throw error;
     } finally {
         await mongoose.disconnect();
@@ -88,7 +84,6 @@ export const AddProduct = async (product) => {
         await Product.save();
         
     } catch (error) {
-        console.error("Error saving product:", error);
         throw error;
     } finally {
         await mongoose.disconnect();

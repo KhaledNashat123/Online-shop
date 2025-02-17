@@ -9,6 +9,7 @@ import loginrouter from './routes/login.route';
 import cartrouter from './routes/cart.route';
 import orderrouter from './routes/order.route';
 import adminrouter from './routes/admin.route';
+import { notFound, serverError } from './middlewares/ErrorHandler';
 import flash from "connect-flash"
 
 
@@ -16,6 +17,7 @@ import bodyParser from "body-parser";
 
 import session from "express-session";
 import connectmongoDBsession from "connect-mongodb-session";
+
 
 const mongoDBstore = connectmongoDBsession(session);
 
@@ -50,7 +52,10 @@ app.use('/login' ,loginrouter )
 app.use('/cart' ,cartrouter )
 app.use('/orders',orderrouter)
 app.use('/admin',adminrouter)
+app.use(notFound)
 
+
+app.use(serverError)
 
 app.listen(process.env.PORT || 3000 , () => {
     console.log("server is listening on port" , process.env.PORT || 3000)
