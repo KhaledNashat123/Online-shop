@@ -1,0 +1,55 @@
+<%- include('parts/header.ejs') %>
+<%- include('parts/navbar.ejs') %>
+<%- include('parts/footer.ejs') %>
+
+<div class="container">
+    <h2 class="mt-4">Manage Orders</h2>
+    
+    <% if (success.length > 0) { %>
+        <div class="alert alert-success"><%= success %></div>
+    <% } %>
+    
+    <% if (error.length > 0) { %>
+        <div class="alert alert-danger"><%= error %></div>
+    <% } %>
+
+    <% if (orders.length === 0) { %>
+        <p class="alert alert-warning">You have no orders yet.</p>
+    <% } else { %>
+        <table class="table table-bordered mt-3">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Items</th>
+                    <th>Total Price</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (let i = 0; i < orders.length; i++) { %>
+                    <tr>
+                        <td><%= i + 1 %></td>
+                        <td>
+                            <% orders[i].items.forEach(item => { %>
+                                <p><%= item.name %> (x<%= item.amount %>)</p>
+                            <% }) %>
+                        </td>
+                        <td><%= orders[i].totalPrice %> $</td>
+                        <td>
+                            <form method="POST" action="/orders/updateStatus/<%= orders[i]._id %>">
+                                <div class="d-flex">
+                                    <select name="status" class="form-control me-2">
+                                        <option value="pending" <%= orders[i].status === 'pending' ? 'selected' : '' %>>Pending</option>
+                                        <option value="sent" <%= orders[i].status === 'sent' ? 'selected' : '' %>>Sent</option>
+                                        <option value="completed" <%= orders[i].status === 'completed' ? 'selected' : '' %>>Completed</option>
+                                    </select>
+                                    <button type="submit" class="btn btn-primary">Confirm</button>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    <% } %>
+</div>

@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { clearCart, GetItemsByUserId } from "../models/cart.model";
-import { getUserOrders } from "../models/order.model";
+import { clearOrders, getUserOrders, updateStatus } from "../models/order.model";
+
 
 export const getOrders = async (req, res, next) => {
     try {
@@ -17,7 +18,25 @@ export const getOrders = async (req, res, next) => {
     }
 };
 
-export const confirmOrders = async (req, res) => {
+export const getManageOrder = async (req, res,next) => {
+    try {
+        const orders = await getUserOrders(req.session.userId);
+
+        res.render("manage-orders", {
+            success: 0,
+            error: 0,
+            orders: orders,
+            isUser:req.session.userId,
+            isAdmin : true,
+        });
+    } catch (error) {
+        res.redirect("/orders");
+    } finally {
+        await mongoose.disconnect();
+    }
+};
+
+export const confirmOrders = async (req, res,next) => {
     try {
         const orders = await getUserOrders(req.session.userId);
 
@@ -27,7 +46,13 @@ export const confirmOrders = async (req, res) => {
         }
 
         req.flash("success", "Orders are confirmed successfully");
-        res.redirect("/orders");
+        res.render("manage-orders", {
+            success: req.flash("success"),
+            error: req.flash("error"),
+            orders: orders,
+            isUser:req.session.userId,
+            isAdmin : true,
+        });
     } catch (error) {
         res.redirect("/orders");
     } finally {
@@ -35,9 +60,10 @@ export const confirmOrders = async (req, res) => {
     }
 };
 
-export const deleteAllOrders = async (req, res) => {
+export const deleteAllOrders = async (req, res,next) => {
     try {
         await clearCart(req.session.userId);
+        await clearOrders(req.session.userId);
 
         req.flash("success", "All orders deleted successfully"); 
         res.redirect("/orders");
@@ -46,4 +72,23 @@ export const deleteAllOrders = async (req, res) => {
     } finally {
         await mongoose.disconnect();
     }
+};
+
+
+
+
+export const updateOrderStatus = async (req, res) => {
+    try {
+        const { orderId } = req.params; 
+        const { status } = req.body; 
+
+        await updateStatus(orderId,status)
+        res.redirect('/orders/manage-orders')
+
+    } catch (error) {
+            res.redirect("/orders");
+    } finally {
+        await mongoose.disconnect();
+    }
+
 };
