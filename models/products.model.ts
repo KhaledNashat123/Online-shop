@@ -71,3 +71,26 @@ export const getfirstproduct = async () => {
         await mongoose.disconnect();
     }
 };
+
+
+export const AddProduct = async (product) => {
+    try {
+        await mongoose.connect(DB_URL);
+        
+        let Product = new the_product({
+            name: product.name,
+            price: product.price,
+            category: product.category,
+            image: product.image,
+            description: product.description,
+        });
+
+        await Product.save();
+        
+    } catch (error) {
+        console.error("Error saving product:", error);
+        throw error;
+    } finally {
+        await mongoose.disconnect();
+    }
+};
