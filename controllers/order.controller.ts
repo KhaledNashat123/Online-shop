@@ -10,7 +10,8 @@ export const getOrders = async (req, res, next) => {
             isUser: req.session.userId,
             isAdmin : req.session.isAdmin,
             success: req.flash("success"), 
-            error: req.flash("error")      
+            error: req.flash("error"),
+            pageTitle : "Orders"
         });
     } catch (error) {
         next(error);
@@ -27,6 +28,7 @@ export const getManageOrder = async (req, res,next) => {
             orders: orders,
             isUser:req.session.userId,
             isAdmin : true,
+            pageTitle : "Manage Orders"
         });
     } catch (error) {
         next(error);
@@ -49,6 +51,7 @@ export const confirmOrders = async (req, res,next) => {
             orders: orders,
             isUser:req.session.userId,
             isAdmin : true,
+            pageTitle : "Manage Orders"
         });
     } catch (error) {
         next(error);

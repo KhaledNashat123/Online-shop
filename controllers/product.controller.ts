@@ -9,6 +9,7 @@ export const firstproduct_in_DB_controller= (req , res, next) => {
             product : product ,
             isUser:req.session.userId,
             isAdmin : req.session.isAdmin,
+            pageTitle : "Product"
         }).catch((err) => { 
             next(err);
         })
@@ -25,6 +26,7 @@ export const productcontroller = (req, res, next) => {
                 product: product,
                 isUser: req.session.userId,
                 isAdmin: req.session.isAdmin,
+                pageTitle : "Product"
             });
         })
         .catch((err) => {

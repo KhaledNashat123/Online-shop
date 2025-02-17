@@ -6,6 +6,7 @@ export const authcontroller_getlogin = (req,res,next) => {
         TheError : req.flash("TheError")[0],
         isUser : req.session.userId,
         isAdmin: false,
+        pageTitle : "Log in"
     });
 }
 

@@ -14,6 +14,7 @@ export const getHome = (req ,res ,next ) => {
                 isUser:req.session.userId,
                 isAdmin : req.session.isAdmin,
                 validationError : req.flash("validationErrors")[0],
+                pageTitle : "Home"
             })
         ).catch((error)=> {
             next(error);
@@ -27,6 +28,7 @@ export const getHome = (req ,res ,next ) => {
                 isUser:req.session.userId,
                 isAdmin : req.session.isAdmin,
                 validationError : req.flash("validationErrors")[0],
+                pageTitle : "Home"
             });
         }).catch((error)=> {
             next(error);
@@ -39,6 +41,7 @@ else {
             isUser:req.session.userId,
             isAdmin : req.session.isAdmin,
             validationError : req.flash("validationErrors")[0],
+            pageTitle : "Home"
         });
     }
 };

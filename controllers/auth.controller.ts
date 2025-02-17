@@ -8,6 +8,7 @@ export const authcontroller_getsignup = (req,res,next) => {
         validation_error : [],
         isUser:req.session.userId,
         isAdmin : false,
+        pageTitle : "Sign Up"
     });
     
 }
@@ -23,6 +24,7 @@ export const authcontroller_postsignup = (req, res, next) => {
         res.render('signup' , {
             validation_error : err.array(), 
             isUser:req.session.userId,
+            pageTitle : "Sign Up"
         });
     }
     else {
@@ -35,6 +37,7 @@ export const authcontroller_postsignup = (req, res, next) => {
                 error : error.message,
                 validation_error : [],
                 isUser:req.session.userId,
+                pageTitle : "Sign Up",
             })
         });
     }
