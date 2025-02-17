@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { clearCart, GetItemsByUserId } from "../models/cart.model";
+import { getUserOrders } from "../models/order.model";
 
 export const getOrders = async (req, res, next) => {
     try {
@@ -18,7 +19,7 @@ export const getOrders = async (req, res, next) => {
 
 export const confirmOrders = async (req, res) => {
     try {
-        const orders = await GetItemsByUserId(req.session.userId);
+        const orders = await getUserOrders(req.session.userId);
 
         if (orders.length === 0) {
             req.flash("error", "There is no orders");

@@ -1,4 +1,5 @@
 import mongoose, {Schema , Document,Model} from "mongoose";
+import { createOrder } from "./order.model";
 
 const DB_URL = "mongodb://localhost:27017/online-shop";
 
@@ -27,13 +28,24 @@ export const AddItem = async (data) => {
         let exist = await Cart.findOne({ name: data.name, userId: data.userId });
 
         if (exist) {
-            exist.amount =Number(exist.amount) + Number(data.amount); 
-            return exist.save();
-        }
+            exist.amount = Number(exist.amount) + Number(data.amount);
+            await exist.save();
+        } else {
             let item = new Cart(data);
-            return item.save();
+            await item.save();
+        }
+
+        const orderItems = [{ 
+            name: data.name, 
+            price: data.price, 
+            amount: data.amount, 
+            productId: data.productId 
+        }];
+
+        await createOrder(data.userId, orderItems);
+
     } catch (error) {
-        console.error("Error in saving item:", error);
+        console.error("Error in creating order:", error);
         throw error;
     }
 };
