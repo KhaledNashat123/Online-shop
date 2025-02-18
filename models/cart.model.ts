@@ -1,7 +1,8 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import mongoose, {Schema , Document,Model} from "mongoose";
 import { createOrder } from "./order.model";
-
-const DB_URL = "mongodb://localhost:27017/online-shop";
 
 interface cart extends Document {
     name : string,
@@ -24,7 +25,7 @@ const Cart : Model<cart> = mongoose.model<cart>('cart' , schema)
 
 export const AddItem = async (data) => {
     try {
-        await mongoose.connect(DB_URL); 
+        await mongoose.connect(process.env.DB_URL as string); 
         let exist = await Cart.findOne({ name: data.name, userId: data.userId });
 
         if (exist) {
@@ -54,13 +55,11 @@ export const AddItem = async (data) => {
 
 export const GetItemsByUserId = async (userId) => {
     try {
-        await mongoose.connect(DB_URL);
+        await mongoose.connect(process.env.DB_URL as string);
         return Cart.find({userId })
 
     } catch (error) {
         throw error;
-    } finally {
-        await mongoose.disconnect();
     }
 };
 
@@ -68,7 +67,7 @@ export const GetItemsByUserId = async (userId) => {
 
 export const EditItem = async (id , NewAmount) => {
     try {
-        await mongoose.connect(DB_URL);
+        await mongoose.connect(process.env.DB_URL as string);
         return Cart.updateOne({ _id: id }, { $set: { amount: NewAmount } });
 
     } catch (error) {
@@ -81,7 +80,7 @@ export const EditItem = async (id , NewAmount) => {
 
 export const DeleteItem = async (id) => {
     try {
-        await mongoose.connect(DB_URL);
+        await mongoose.connect(process.env.DB_URL as string);
         return Cart.deleteOne({ _id: id });
 
     } catch (error) {
@@ -94,7 +93,7 @@ export const DeleteItem = async (id) => {
 
 export const getCartItems = async (userId) => {
     try {
-        await mongoose.connect(DB_URL);
+        await mongoose.connect(process.env.DB_URL as string);
         return await Cart.find({ userId });
     } catch (error) {
         throw error;
@@ -105,7 +104,7 @@ export const getCartItems = async (userId) => {
 
 export const clearCart = async (userId) => {
     try {
-        await mongoose.connect(DB_URL);
+        await mongoose.connect(process.env.DB_URL as string);
         await Cart.deleteMany({ userId });
     } catch (error) {
         throw error;

@@ -1,6 +1,8 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import mongoose, {Schema , Document,Model} from "mongoose";
 
-const DB_URL = "mongodb://localhost:27017/online-shop";
 
 interface product extends Document {
     name : string,
@@ -23,7 +25,7 @@ const the_product : Model<product> = mongoose.model<product>('product' , schema)
 
 export const getAllProducts = async () => {
     try {
-        await mongoose.connect(DB_URL);
+        await mongoose.connect(process.env.DB_URL as string);
         return await the_product.find();
     } catch (error) {
         throw error;
@@ -34,7 +36,7 @@ export const getAllProducts = async () => {
 
 export const getproductbycategory = async (category) => {
     try {
-        await mongoose.connect(DB_URL);
+        await mongoose.connect(process.env.DB_URL as string);
 
         const products = await the_product.find({ category });
         return products; 
@@ -48,7 +50,7 @@ export const getproductbycategory = async (category) => {
     
 export const getproductbyid = async (id) => {
     try {
-        await mongoose.connect(DB_URL);
+        await mongoose.connect(process.env.DB_URL as string);
         return await the_product.findById(id);
     } catch (error) {
         throw error;
@@ -59,7 +61,7 @@ export const getproductbyid = async (id) => {
 
 export const getfirstproduct = async () => {
     try {
-        await mongoose.connect(DB_URL);
+        await mongoose.connect(process.env.DB_URL as string);
         return await the_product.findOne({});
     } catch (error) {
         throw error;
@@ -71,7 +73,7 @@ export const getfirstproduct = async () => {
 
 export const AddProduct = async (product) => {
     try {
-        await mongoose.connect(DB_URL);
+        await mongoose.connect(process.env.DB_URL as string);
         
         let Product = new the_product({
             name: product.name,

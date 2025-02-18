@@ -1,7 +1,9 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import mongoose, {Schema , Document,Model} from "mongoose";
 import bcrypt from "bcrypt";
 
-const DB_URL = "mongodb://localhost:27017/online-shop";
 
 interface user extends Document {
     name : string,
@@ -25,7 +27,7 @@ const User : Model<user> = mongoose.model<user>('user' , schema)
 
 export const CreateNewUser = async (username ,email , password) => {
     try {
-        await mongoose.connect(DB_URL);
+        await mongoose.connect(process.env.DB_URL as string);
         let check = await User.findOne({email : email})
         if (check){
             throw new Error("Email is already used");
@@ -49,7 +51,7 @@ export const CreateNewUser = async (username ,email , password) => {
 
 export const login = async (email, password) => {
     try {
-        await mongoose.connect(DB_URL);
+        await mongoose.connect(process.env.DB_URL as string);
         const user = await User.findOne({ email: email });
 
         if (!user) {

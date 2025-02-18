@@ -1,6 +1,8 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import mongoose, { Schema, Document, Model } from "mongoose";
 
-const DB_URL = "mongodb://localhost:27017/online-shop";
 
 interface Order extends Document {
     userId: string;
@@ -31,7 +33,7 @@ const OrderModel: Model<Order> = mongoose.model<Order>("Order", orderSchema);
 
 export const createOrder = async (userId, items) => {
     try {
-        await mongoose.connect(DB_URL);
+        await mongoose.connect(process.env.DB_URL as string);
         const totalPrice = items.reduce((sum, item) => sum + item.price * item.amount, 0);
         const order = new OrderModel({ userId, items, totalPrice, status: "pending" });
         return await order.save();
@@ -44,7 +46,7 @@ export const createOrder = async (userId, items) => {
 
 export const getUserOrders = async (userId) => {
     try {
-        await mongoose.connect(DB_URL);
+        await mongoose.connect(process.env.DB_URL as string);
         return await OrderModel.find({ userId });
     } catch (error) {
         throw error;
@@ -56,7 +58,7 @@ export const getUserOrders = async (userId) => {
 
 export const clearOrders = async (userId) => {
     try {
-        await mongoose.connect(DB_URL);
+        await mongoose.connect(process.env.DB_URL as string);
         await OrderModel.deleteMany({ userId });
     } catch (error) {
         throw error;
@@ -68,7 +70,7 @@ export const clearOrders = async (userId) => {
 
 export const updateStatus = async (orderId,status) => {
     try {
-        await mongoose.connect(DB_URL);
+        await mongoose.connect(process.env.DB_URL as string);
         const order = await OrderModel.findById(orderId);
 
         if (!order) {
