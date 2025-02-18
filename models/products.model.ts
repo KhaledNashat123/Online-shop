@@ -21,12 +21,12 @@ const schema: Schema = new mongoose.Schema({
     description: { type: String, required: true },
 });
 
-const the_product : Model<product> = mongoose.model<product>('product' , schema)
+const product : Model<product> = mongoose.model<product>('product' , schema)
 
-export const getAllProducts = async () => {
+export const GetAllProducts = async () => {
     try {
         await mongoose.connect(process.env.DB_URL as string);
-        return await the_product.find();
+        return await product.find();
     } catch (error) {
         throw error;
     } finally {
@@ -34,11 +34,11 @@ export const getAllProducts = async () => {
     }
 };
 
-export const getproductbycategory = async (category) => {
+export const GetrPoductByCategory = async (category) => {
     try {
         await mongoose.connect(process.env.DB_URL as string);
 
-        const products = await the_product.find({ category });
+        const products = await product.find({ category });
         return products; 
     } catch (error) {
         throw error; 
@@ -48,10 +48,10 @@ export const getproductbycategory = async (category) => {
 };
 
     
-export const getproductbyid = async (id) => {
+export const GetProductById = async (id) => {
     try {
         await mongoose.connect(process.env.DB_URL as string);
-        return await the_product.findById(id);
+        return await product.findById(id);
     } catch (error) {
         throw error;
     } finally {
@@ -59,10 +59,10 @@ export const getproductbyid = async (id) => {
     }
 };
 
-export const getfirstproduct = async () => {
+export const GetFirstProduct = async () => {
     try {
         await mongoose.connect(process.env.DB_URL as string);
-        return await the_product.findOne({});
+        return await product.findOne({});
     } catch (error) {
         throw error;
     } finally {
@@ -75,7 +75,7 @@ export const AddProduct = async (product) => {
     try {
         await mongoose.connect(process.env.DB_URL as string);
         
-        let Product = new the_product({
+        let Product = new product({
             name: product.name,
             price: product.price,
             category: product.category,

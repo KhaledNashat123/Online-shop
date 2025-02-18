@@ -31,7 +31,7 @@ const orderSchema: Schema = new mongoose.Schema({
 
 const OrderModel: Model<Order> = mongoose.model<Order>("Order", orderSchema);
 
-export const createOrder = async (userId, items) => {
+export const CreateOrder = async (userId, items) => {
     try {
         await mongoose.connect(process.env.DB_URL as string);
         const totalPrice = items.reduce((sum, item) => sum + item.price * item.amount, 0);
@@ -44,7 +44,7 @@ export const createOrder = async (userId, items) => {
     }
 };
 
-export const getUserOrders = async (userId) => {
+export const GetUserOrders = async (userId) => {
     try {
         await mongoose.connect(process.env.DB_URL as string);
         return await OrderModel.find({ userId });
@@ -56,7 +56,7 @@ export const getUserOrders = async (userId) => {
 };
 
 
-export const clearOrders = async (userId) => {
+export const ClearOrders = async (userId) => {
     try {
         await mongoose.connect(process.env.DB_URL as string);
         await OrderModel.deleteMany({ userId });
@@ -68,7 +68,7 @@ export const clearOrders = async (userId) => {
 };
 
 
-export const updateStatus = async (orderId,status) => {
+export const UpdateStatus = async (orderId,status) => {
     try {
         await mongoose.connect(process.env.DB_URL as string);
         const order = await OrderModel.findById(orderId);

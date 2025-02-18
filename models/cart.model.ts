@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import mongoose, {Schema , Document,Model} from "mongoose";
-import { createOrder } from "./order.model";
+import { CreateOrder } from "./order.model";
 
 interface cart extends Document {
     name : string,
@@ -43,7 +43,7 @@ export const AddItem = async (data) => {
             productId: data.productId 
         }];
 
-        await createOrder(data.userId, orderItems);
+        await CreateOrder(data.userId, orderItems);
 
     } catch (error) {
         throw error;

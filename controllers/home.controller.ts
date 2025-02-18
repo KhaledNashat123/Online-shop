@@ -1,5 +1,5 @@
-import { getAllProducts } from "../models/products.model";
-import { getproductbycategory } from "../models/products.model";
+import { GetAllProducts } from "../models/products.model";
+import { GetrPoductByCategory } from "../models/products.model";
 
 
 export const getHome = (req ,res ,next ) => {
@@ -8,7 +8,7 @@ export const getHome = (req ,res ,next ) => {
     let allcatigories  : string[] = ["all" ,"silver watch" , "gold watch" ,"black watch"];
     
     if (allcatigories.includes(category) && category !== "all" ){
-        getproductbycategory(category).then( products =>
+        GetrPoductByCategory(category).then( products =>
             res.render('index' , {
                 products : products,
                 isUser:req.session.userId,
@@ -22,7 +22,7 @@ export const getHome = (req ,res ,next ) => {
         
     }
     else if ( category == "all" ){
-        getAllProducts().then(products => {
+        GetAllProducts().then(products => {
             res.render('index' , {
                 products : products,
                 isUser:req.session.userId,

@@ -1,10 +1,10 @@
-import { getproductbyid } from "../models/products.model";
-import { getfirstproduct } from "../models/products.model";
+import { GetProductById } from "../models/products.model";
+import { GetFirstProduct } from "../models/products.model";
 
 
 export const firstproduct_in_DB_controller= (req , res, next) => {
 
-    getfirstproduct().then(product =>
+    GetFirstProduct().then(product =>
         res.render("product" ,{
             product : product ,
             isUser:req.session.userId,
@@ -20,7 +20,7 @@ export const firstproduct_in_DB_controller= (req , res, next) => {
 export const productcontroller = (req, res, next) => {
     let id = req.params.id;
 
-    getproductbyid(id)
+    GetProductById(id)
         .then((product) => {
             res.render('product', {
                 product: product,
