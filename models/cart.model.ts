@@ -47,8 +47,6 @@ export const AddItem = async (data) => {
 
     } catch (error) {
         throw error;
-    } finally {
-        await mongoose.disconnect();
     }
 };
 
@@ -72,8 +70,6 @@ export const EditItem = async (id , NewAmount) => {
 
     } catch (error) {
         throw error;
-    } finally {
-        await mongoose.disconnect();
     }
 };
 
@@ -85,8 +81,6 @@ export const DeleteItem = async (id) => {
 
     } catch (error) {
         throw error;
-    } finally {
-        await mongoose.disconnect();
     }
 };
 
@@ -97,8 +91,6 @@ export const getCartItems = async (userId) => {
         return await Cart.find({ userId });
     } catch (error) {
         throw error;
-    } finally {
-        await mongoose.disconnect();
     }
 };
 
@@ -108,7 +100,5 @@ export const clearCart = async (userId) => {
         await Cart.deleteMany({ userId });
     } catch (error) {
         throw error;
-    } finally {
-        await mongoose.disconnect();
     }
 };
